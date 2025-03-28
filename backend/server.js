@@ -1,13 +1,20 @@
 const express = require('express');
-const connectDB = require('./db'); // Import the MongoDB connection
+const bodyParser = require('body-parser');
+const connectDB = require('./db');
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+const userController = require('./src/auth/controllers/userController');
 
 // Connect to MongoDB
 connectDB();
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+app.use(bodyParser.json());
+
+app.use('/api/auth', userController);
 
 // Define routes here
 app.get('/', (req, res) => {
