@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./db');
 const app = express();
+const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
 const userController = require('./src/auth/controllers/userController');
@@ -10,6 +11,7 @@ const userController = require('./src/auth/controllers/userController');
 connectDB();
 
 // Middleware to parse JSON requests
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 
 app.use(bodyParser.json());
