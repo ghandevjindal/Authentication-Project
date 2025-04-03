@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,11 +9,12 @@ const Login = () => {
   // State to store email and password
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", {
         email,
@@ -28,6 +30,8 @@ const Login = () => {
       toast.success("Login Successful!", {
         position: "top-right", // ✅ Use a string directly instead of `toast.POSITION.TOP_RIGHT`
       });
+
+      navigate("/home");
   
     } catch (error) {
       // Show error toast
